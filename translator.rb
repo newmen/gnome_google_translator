@@ -81,7 +81,7 @@ end
 
 def prepare_text(text)
 	text = text.gsub(/-\r?\n/m, '').gsub(/\r?\n/m, ' ')
-	punctuation_rexp = /[\s\?\.,!:;-]+/
+	punctuation_rexp = /[\(\)\[\]\s\?\.,!:;-]+/
 	text.gsub(/(^#{punctuation_rexp})|(#{punctuation_rexp}$)/, '')
 end
 
