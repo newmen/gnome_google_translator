@@ -102,7 +102,9 @@ def use_vocabulary(text)
 			curr_data[0]
 		else
 			transfer = translate(text)
-			source_hash[text] = [transfer, 1] if transfer && transfer.downcase != text.downcase
+			if transfer && transfer.downcase != text.downcase && !(text.split(/\s+/).size > 5 && text.size > 21)
+				source_hash[text] = [transfer, 1]
+			end
 			transfer
 		end
 	end
