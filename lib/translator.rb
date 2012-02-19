@@ -4,9 +4,10 @@ require File.dirname(__FILE__) + '/localization'
 require File.dirname(__FILE__) + '/config'
 
 class Translator
-  VOCABULARY_PATH = TConfig['vocabulary_dir'] + '/' + TConfig['vocabulary_file_name']
-  VOCABULARY_SEPARATOR = "--\n"
   TOKENS_SEPARATOR = '-->' # be careful because it string using into regexp
+  VOCABULARY_SEPARATOR = "--\n"
+  VOCABULARY_PATH = TConfig['vocabulary_dir'] + '/' + TConfig['vocabulary_file_name']
+  CACHED_VOCABULARY_PATH = '../cache/' + TConfig['vocabulary_file_name']
 
   def self.run
     self.new.run
@@ -105,6 +106,36 @@ class Translator
     result
   end
 
+  def clear_vocabulary_if_need
+    get_file_lines = lambda { |file_path|
+      File.open(file_path) { |f| f.readlines }
+    }
+
+    save_file = lambda { |file_path, lines|
+      File.open(file_path, 'w') { |f| f << lines.join }
+    }
+
+    cached_vocabulary_path = File.dirname(__FILE__) + '/' + CACHED_VOCABULARY_PATH
+    save_cache = lambda { |lines|
+      translates = lines - [VOCABULARY_SEPARATOR]
+      save_file.call(cached_vocabulary_path, translates)
+    }
+
+    unless File.exist?(cached_vocabulary_path)
+      cache_dir = File.dirname(cached_vocabulary_path)
+      Dir.mkdir(cache_dir) unless File.exist?(cache_dir)
+      save_cache.call(get_file_lines.call(VOCABULARY_PATH))
+      return
+    end
+
+    cache_time = File.mtime(cached_vocabulary_path).to_i
+    return if cache_time + TConfig['how_often_to_clean'].to_i * 86400 > Time.now.to_i
+
+    diff = get_file_lines.call(VOCABULARY_PATH) - get_file_lines.call(cached_vocabulary_path)
+    save_file.call(VOCABULARY_PATH, diff)
+    save_cache.call(diff)
+  end
+
   def gnome_notify(message)
     `notify-send -u critical #{message}`
   end
@@ -125,5 +156,7 @@ class Translator
       end
       gnome_notify(message)
     end
+
+    clear_vocabulary_if_need
   end
 end
