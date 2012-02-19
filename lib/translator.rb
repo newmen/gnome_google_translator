@@ -8,6 +8,7 @@ class Translator
   VOCABULARY_SEPARATOR = "--\n"
   VOCABULARY_PATH = TConfig['vocabulary_dir'] + '/' + TConfig['vocabulary_file_name']
   CACHED_VOCABULARY_PATH = '../cache/' + TConfig['vocabulary_file_name']
+  ICON_PATH = File.dirname(__FILE__) + '/../config/google-translate.png'
 
   def self.run
     self.new.run
@@ -146,7 +147,7 @@ class Translator
   end
 
   def gnome_notify(message)
-    `notify-send -u critical #{message}`
+    `notify-send -u critical --icon=#{ICON_PATH} #{message}`
   end
 
   def run
