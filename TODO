@@ -1,6 +1,3 @@
-Replace HEREDOCs in the installator to erb templates
-Improve installator behavior
-Create yaml config for configure translator behavior and installation
 Create alternate hotkey for translate original language
 Make temp vocabulary file for compare original vocabulary with it and then erasing original vocabulary size
 Translate README

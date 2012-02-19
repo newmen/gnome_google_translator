@@ -1,12 +1,17 @@
 ru:
+  config:
+    select_lang: "Укажите ваш родной язык (%{langs})"
+    bad_lang: 'К сожалению, указанного языка нет в приведённом выше списке. Повторите ввод'
+    vocabulary_dir: 'Укажите директорию, для файла словаря'
+    vocabulary_file_name: 'Укажите название файла словаря'
+    how_often_to_clean: 'Раз в сколько дней автоматически очищать файл словаря от старых слов?'
+
   installation:
     translator_file_not_found: "Почему-то нет скрипта осуществляющего перевод %{translator_file_path}. WTF?"
     translator_bin_exist: "Файл %{translator_bin_path} уже существует. Заменить?"
     translator_bin_not_replaced: 'не заменён'
     translator_bin_replaced: ' успешно заменён'
     translator_bin_created: 'успешно создан'
-    ask_vocabulary_dir: 'Укажите директорию, для файла словаря'
-    ask_vocabulary_file_name: 'Укажите название файла словаря'
     ask_about_gnome: 'Может быть у вас не Gnome?'
     ask_create_hotkeys: "Прописать горячие кнопки %{another_lang_hotkey} и %{original_lang_hotkey}?"
     hotkeys_created: 'Горячие кнопки прописаны'

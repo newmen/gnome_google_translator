@@ -1,11 +1,16 @@
 require 'cgi'
-require File.dirname(__FILE__) + '/localization'
 require File.dirname(__FILE__) + '/unregistered_helpers'
+require File.dirname(__FILE__) + '/localization'
+require File.dirname(__FILE__) + '/config'
 
-module Translator
-  VOCABULARY_PATH = ENV['VOCABULARY_DIR'] + '/' + ENV['VOCABULARY_FILE_NAME']
+class Translator
+  VOCABULARY_PATH = TConfig['vocabulary_dir'] + '/' + TConfig['vocabulary_file_name']
   VOCABULARY_SEPARATOR = "--\n"
   TOKENS_SEPARATOR = '-->' # be careful because it string using into regexp
+
+  def self.run
+    self.new.run
+  end
 
   def vocabulary_hashes
     words_hash = UnregisteredHash.new
@@ -115,12 +120,10 @@ module Translator
         translated_text = use_vocabulary(source_text)
         message = %|"#{source_text}" "#{translated_text}"|
       else
-        Localization.localization_init(:ru)
-        message = %|"#{Localization.t('translator.source_text_does_not_selected')}"|
+        L18ze.init(TConfig['original_lang'])
+        message = %|"#{L18ze['translator.source_text_does_not_selected']}"|
       end
       gnome_notify(message)
     end
   end
 end
-
-Translator.run

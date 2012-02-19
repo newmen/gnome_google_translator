@@ -1,4 +1,4 @@
-module Translator
+class Translator
   class UnregisteredString
     attr_reader :str
     def initialize(str); @str = str end

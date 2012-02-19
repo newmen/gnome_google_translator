@@ -1,12 +1,17 @@
 en:
+  config:
+    select_lang: "Select your own language (%{langs})"
+    bad_lang: 'Unfortunately, the specified language is not in the list above. Please try again'
+    vocabulary_dir: 'Enter directory for vocabulary file'
+    vocabulary_file_name: 'Enter name for vocabulary file'
+    how_often_to_clean: 'Once in how many days will automatically clear the vocabulary file from the old words?'
+
   installation:
     translator_file_not_found: "For some reason the translation script (%{translator_file_path}) is not found. WTF?"
     translator_bin_exist: "File %{translator_bin_path} already exists. Replace?"
     translator_bin_not_replaced: 'not replaced'
     translator_bin_replaced: ' successfully replaced'
     translator_bin_created: 'successfully created'
-    ask_vocabulary_dir: 'Enter directory for vocabulary file'
-    ask_vocabulary_file_name: 'Enter name for vocabulary file'
     ask_about_gnome: 'Maybe you does not use Gnome?'
     ask_create_hotkeys: "Setup hotkeys %{another_lang_hotkey} and %{original_lang_hotkey}?"
     hotkeys_created: 'Hotkeys are created'
