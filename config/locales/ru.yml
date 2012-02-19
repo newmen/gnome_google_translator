@@ -6,7 +6,7 @@ ru:
     vocabulary_file_name: 'Укажите название файла словаря'
     how_often_to_clean: 'Раз в сколько дней автоматически очищать файл словаря от старых слов?'
 
-  installation:
+  installer:
     translator_file_not_found: "Почему-то нет скрипта осуществляющего перевод %{translator_file_path}. WTF?"
     translator_bin_exist: "Файл %{translator_bin_path} уже существует. Заменить?"
     translator_bin_not_replaced: 'не заменён'

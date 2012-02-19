@@ -6,7 +6,7 @@ en:
     vocabulary_file_name: 'Enter name for vocabulary file'
     how_often_to_clean: 'Once in how many days will automatically clear the vocabulary file from the old words?'
 
-  installation:
+  installer:
     translator_file_not_found: "For some reason the translation script (%{translator_file_path}) is not found. WTF?"
     translator_bin_exist: "File %{translator_bin_path} already exists. Replace?"
     translator_bin_not_replaced: 'not replaced'

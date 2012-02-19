@@ -30,7 +30,7 @@ class Installer
 
   def check_translator_file_exist
     return if File.exist?(translator_file_path)
-    STDERR << L18ze['installation.translator_file_not_found', translator_file_path: translator_file_path] + "\n"
+    STDERR << L18ze['installer.translator_file_not_found', translator_file_path: translator_file_path] + "\n"
     exit!
   end
 
@@ -38,7 +38,7 @@ class Installer
     Dir.mkdir(bin_dir) unless File.exist?(bin_dir)
 
     if File.exist?(translator_bin_path)
-      return -1 unless yes_no_value(L18ze['installation.translator_bin_exist', translator_bin_path: translator_bin_path])
+      return -1 unless yes_no_value(L18ze['installer.translator_bin_exist', translator_bin_path: translator_bin_path])
       result = 1
     else
       result = 0
@@ -56,7 +56,7 @@ class Installer
   def create_hotkey(hotkey)
     check_dir_exist = lambda do |dir|
       unless File.exist?(dir)
-        puts L18ze['installation.ask_about_gnome']
+        puts L18ze['installer.ask_about_gnome']
         exit!
       end
     end
@@ -97,16 +97,16 @@ class Installer
 
     print "#{HOME_DIR + '/bin/' + TRANSLATOR_BIN_NAME} "
     puts case(result)
-    when -1 then L18ze['installation.translator_bin_not_replaced']
-    when 0 then L18ze['installation.translator_bin_created']
-    when 1 then L18ze['installation.translator_bin_replaced']
+    when -1 then L18ze['installer.translator_bin_not_replaced']
+    when 0 then L18ze['installer.translator_bin_created']
+    when 1 then L18ze['installer.translator_bin_replaced']
     end
 
     return unless result == 0
-    return unless yes_no_value(L18ze['installation.ask_create_hotkeys', another_lang_hotkey: 'Alt+F9', original_lang_hotkey: 'Alt+Win+F9'])
+    return unless yes_no_value(L18ze['installer.ask_create_hotkeys', another_lang_hotkey: 'Alt+F9', original_lang_hotkey: 'Alt+Win+F9'])
 
     create_hotkey('&lt;Alt&gt;F9')
-    puts L18ze['installation.hotkeys_created']
-    puts L18ze['installation.need_gnome_restart']
+    puts L18ze['installer.hotkeys_created']
+    puts L18ze['installer.need_gnome_restart']
   end
 end
