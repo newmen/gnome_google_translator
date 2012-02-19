@@ -95,6 +95,7 @@ def translate(text)
 end
 
 def use_vocabulary(text)
+  vocabulary_is_updated = true
 	find_transfer = lambda do |source_hash|
 		curr_data = source_hash[text]
 		if curr_data
@@ -104,6 +105,8 @@ def use_vocabulary(text)
 			transfer = translate(text)
 			if transfer && transfer.downcase != text.downcase && !(text.split(/\s+/).size > 5 && text.size > 21)
 				source_hash[text] = [transfer, 1]
+      else
+        vocabulary_is_updated = false
 			end
 			transfer
 		end
@@ -115,9 +118,13 @@ def use_vocabulary(text)
 	else
 		find_transfer.call(collocation_hash)
 	end
-	save_vocabulary(words_hash, collocation_hash) if result
+	save_vocabulary(words_hash, collocation_hash) if result && vocabulary_is_updated
 
 	result
+end
+
+def gnome_notify(message)
+	`notify-send -u critical #{message}`
 end
 
 def main
@@ -133,7 +140,7 @@ def main
 		else
 			message = '"Не выделили текст для перевода"'
 		end
-		`notify-send -u critical #{message}`
+		gnome_notify(message)
 	end
 end
 
