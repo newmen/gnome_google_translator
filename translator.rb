@@ -1,34 +1,11 @@
 require 'cgi'
 require File.dirname(__FILE__) + '/localization'
+require File.dirname(__FILE__) + '/unregistered_helpers'
 
 module Translator
   VOCABULARY_PATH = ENV['VOCABULARY_DIR'] + '/' + ENV['VOCABULARY_FILE_NAME']
   VOCABULARY_SEPARATOR = "--\n"
   TOKENS_SEPARATOR = '-->' # be careful because it string using into regexp
-
-  class UnregisteredString
-    attr_reader :str
-    def initialize(str); @str = str end
-
-    def <=>(other)
-      @str.downcase <=> other.str.downcase
-    end
-
-    def ==(other); self.<=>(other) == 0 end
-    def eql?(other); self.==(other) end
-    def hash; @str.downcase.hash end
-    def to_s; @str end
-  end
-
-  class UnregisteredHash < Hash
-    def [](key)
-      key.is_a?(String) ? super(UnregisteredString.new(key)) : super
-    end
-
-    def []=(key, value)
-      key.is_a?(String) ? super(UnregisteredString.new(key), value) : super
-    end
-  end
 
   def vocabulary_hashes
     words_hash = UnregisteredHash.new
