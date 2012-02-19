@@ -1,4 +1,4 @@
-Use i18n
+Replace HEREDOCs in the installator to erb templates
 Improve installator behavior
 Create yaml config for configure translator behavior and installation
 Create alternate hotkey for translate original language

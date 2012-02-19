@@ -1,0 +1,16 @@
+en:
+  installation:
+    translator_file_not_found: "For some reason the translation script (%{translator_file_path}) is not found. WTF?"
+    translator_bin_exist: "File %{translator_bin_path} already exists. Replace?"
+    translator_bin_not_replaced: 'not replaced'
+    translator_bin_replaced: ' successfully replaced'
+    translator_bin_created: 'successfully created'
+    ask_vocabulary_dir: 'Enter directory for vocabulary file'
+    ask_vocabulary_file_name: 'Enter name for vocabulary file'
+    ask_about_gnome: 'Maybe you does not use Gnome?'
+    ask_create_hotkeys: "Setup hotkeys %{another_lang_hotkey} and %{original_lang_hotkey}?"
+    hotkeys_created: 'Hotkeys are created'
+    need_gnome_restart: 'To take effect restart the Gnome'
+
+  translator:
+    source_text_does_not_selected: 'Source text does not selected'
