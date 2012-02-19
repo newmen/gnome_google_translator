@@ -1,6 +1,7 @@
 en:
   config:
     select_lang: "Select your own language (%{langs})"
+    alternate_lang: 'Select a language for which you want to translate from your own language'
     bad_lang: 'Unfortunately, the specified language is not in the list above. Please try again'
     vocabulary_dir: 'Enter directory for vocabulary file'
     vocabulary_file_name: 'Enter name for vocabulary file'

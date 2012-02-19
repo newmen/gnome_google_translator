@@ -8,6 +8,9 @@ class Installer
   TRANSLATOR_FILE_NAME = 'translate.rb'
   TRANSLATOR_BIN_NAME = 'translate'
 
+  ANOTHER_LANG_HOTKEY = 'Alt+F9'
+  ORIGINAL_LANG_HOTKEY = 'Alt+Win+F9'
+
   HOME_DIR = ENV['HOME']
   CURRENT_DIR = File.expand_path(File.dirname(__FILE__) + '/..',)
   # RUBY_PATH = File.expand_path(`which ruby`) #.gsub(/^~/, home_dir)
@@ -52,8 +55,17 @@ class Installer
     result
   end
 
+  def prepare_hotkey(hotkey)
+    keys = hotkey.split('+')
+    last_key = keys.pop
+    keys.map do |key|
+      key = 'Mod4' if key == 'Win'
+      "&lt;#{key}&gt;"
+    end.join + last_key
+  end
+
   # TODO: need replace below method for using gconftool-2
-  def create_hotkey(hotkey)
+  def create_hotkey(hotkey, translator_key_option = nil)
     check_dir_exist = lambda do |dir|
       unless File.exist?(dir)
         puts L18ze['installer.ask_about_gnome']
@@ -83,9 +95,11 @@ class Installer
 
     Dir.mkdir(lambda_custom_dir.call)
     hotkey_conf_path = lambda_custom_dir.call + '/%gconf.xml'
+    path = translator_bin_path
+    path += ' ' + translator_key_option if translator_key_option
     File.open(hotkey_conf_path, 'w') do |f|
       time = Time.now.to_i
-      f << Template['hotkey.xml', time: time, translator_bin_path: translator_bin_path, hotkey: hotkey]
+      f << Template['hotkey.xml', time: time, translator_bin_path: path, hotkey: prepare_hotkey(hotkey)]
     end
   end
 
@@ -103,9 +117,10 @@ class Installer
     end
 
     return unless result == 0
-    return unless yes_no_value(L18ze['installer.ask_create_hotkeys', another_lang_hotkey: 'Alt+F9', original_lang_hotkey: 'Alt+Win+F9'])
+    return unless yes_no_value(L18ze['installer.ask_create_hotkeys', another_lang_hotkey: ANOTHER_LANG_HOTKEY, original_lang_hotkey: ORIGINAL_LANG_HOTKEY])
 
-    create_hotkey('&lt;Alt&gt;F9')
+    create_hotkey(ANOTHER_LANG_HOTKEY)
+    create_hotkey(ORIGINAL_LANG_HOTKEY, '--original')
     puts L18ze['installer.hotkeys_created']
     puts L18ze['installer.need_gnome_restart']
   end

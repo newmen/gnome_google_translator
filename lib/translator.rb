@@ -13,6 +13,10 @@ class Translator
     self.new.run
   end
 
+  def initialize
+    @is_original_lang = !!(ARGV.delete('--original'))
+  end
+
   def vocabulary_hashes
     words_hash = UnregisteredHash.new
     collocation_hash = UnregisteredHash.new
@@ -70,7 +74,12 @@ class Translator
 
   def translate(text)
     text = CGI::unescape(text)
-    translate_url = "http://translate.google.com/translate_a/t?client=t&text=#{text}&sl=auto&tl=ru"
+    from_to = if @is_original_lang
+      "sl=#{TConfig['original_lang']}&tl=#{TConfig['alternate_lang']}"
+    else
+      "sl=auto&tl=#{TConfig['original_lang']}"
+    end
+    translate_url = "http://translate.google.com/translate_a/t?client=t&text=#{text}&#{from_to}"
     google_answer = `wget -U "Mozilla/5.0" -qO - "#{translate_url}"`
     # puts google_answer
     result = eval(google_answer.gsub(/,+/, ','))

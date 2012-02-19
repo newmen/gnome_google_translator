@@ -8,6 +8,7 @@ class TConfig
   PATH_TO_CONFIG_FILE = '../config/config.yml'
   LANGS = %w|af ar az be bg bn ca cs cy da de el en es et eu fa fi fr ga gl gu hi hr ht hy hy id is it iw ja ka kn ko la lt lv mk ms mt nl no pl pt ro ru sk sl sq sr sv sw ta te th tl tr uk ur vi yi zh-CH|
 
+  DEFAULT_ALTERNATE_LANG = 'en'
   DEFAULT_VOCABULARY_DIR = ENV['HOME']
   DEFAULT_VOCABULARY_FILE_NAME = 'vocabulary.txt'
   DEFAULT_HOW_OFTEN_TO_CLEAN = 5
@@ -35,6 +36,7 @@ class TConfig
       @hash[var_name] = enter_value(L18ze['config.' + var_name], old_value)
     }
 
+    lambda_ask.call('alternate_lang')
     lambda_ask.call('vocabulary_dir')
     lambda_ask.call('vocabulary_file_name')
     lambda_ask.call('how_often_to_clean')
