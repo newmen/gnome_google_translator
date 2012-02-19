@@ -54,7 +54,7 @@ class TConfig
       lang = if lang
         enter_value(L18ze['config.bad_lang'], original_lang)
       else
-        enter_value(L18ze['config.select_lang', langs: LANGS.join(', ')], original_lang)
+        enter_value(L18ze['config.select_lang', :langs => LANGS.join(', ')], original_lang)
       end
 
       break if LANGS.include?(lang)
