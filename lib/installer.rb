@@ -12,7 +12,7 @@ class Installer
   ORIGINAL_LANG_HOTKEY = 'Alt+Win+F9'
 
   HOME_DIR = ENV['HOME']
-  CURRENT_DIR = File.expand_path(File.dirname(__FILE__) + '/..',)
+  CURRENT_DIR = File.expand_path(File.dirname(__FILE__) + '/..')
   # RUBY_PATH = File.expand_path(`which ruby`) #.gsub(/^~/, home_dir)
 
   def self.run

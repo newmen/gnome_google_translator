@@ -1,26 +1,28 @@
 #Gnome Google translator
-Hotkey переводчик, для Gnome, использующий Google, и формирующий файл словаря, для повторения переведённых слов перед сном.
+Hotkey translator for Gnome uses Google and forms a vocabulary file to repeat unknown words before bedtime (later).
 
-Файл словаря, также полезен, если у вас внезапно пропадает интернет.
+Vocabulary file is also useful if you suddenly lost internet.
 
-##Установка
-Клонируем сий код себе `git clone https://github.com/newmen/gnome_google_translator`, а далее запускаем установщик `ruby install.rb`
+The readme files on another languages you can see in the [docs/](https://github.com/newmen/gnome_google_translator/tree/master/docs) directory.
 
-Установщик спросит обо всём необходимом, и подскажет, что делать дальше.
+##Installing
+Clone this code `git clone https://github.com/newmen/gnome_google_translator` and go to the created folder `cd gnome_google_translator`. Next do not forget to make `bundle`, after that run the installer `ruby install.rb`
 
-##Конфигурация
-Если после установки вы решили, что неправильно сконфигурировали переводчик, и хотите его переконфигурировать - воспользуйтесь командой `ruby configure.rb`.
+The installer will ask you about everything you like and tell you what to do next.
 
-##Детали
-Установщик создаст файл ~/bin/translate и, по вашему желанию создаст горячие кнопки (Alt+F9 и Alt+Win+F9) для вызова переводчика прямо из Иксов. Т.е. если вам нужно перевести какой-либо текст, вы выделяете его мышкой и нажимаете Alt+F9, после чего перевод всплывает аки gnome notify. Для перевода текста с вашего родного языка на альтернативный язык, указанный при установке,  необходимо нажать Alt+Win+F9. Кобминации клавиш горячего вызова переводчика, всегда можно сменить в настройках горячих клавиш Gnome.
+##Configuration
+If after installation you decide that translator is wrong configured, and want to re-configure it - use the command `ruby configure.rb`.
 
-Помимо вызова, посредством выделения текста и нажатия горячих клавиш, можно использовать сие из командной строки. Для этого достаточно написать, например `translate Hello Ruby`, и перевод отобразится в том же терминале.
+##Details
+Installer will create ~/bin/translate file, and if you want it will make hotkeys (Alt+F9 and Alt+Win+F9) for calling translator directly from X system. Thus if you need translate some text, you select it by mouse and press Alt+F9, after that translation popup as gnome notify. For translating some text from your own language to alternate language, that was specified during installation, you need to press Alt+Win+F9. You can change keyboard shortcuts for hot calling translator in the Gnome shortcuts settings anytime.
 
-Файл словаря устроен таким образом, что слова, которые вы переводите чаще всего, находятся выше остальных. Это сделано для того, чтобы перед сном, вы запоминали именно наимболее "трудные" для вас слова (для этого достаточно читать (некоторое количество раз) первые несколько строчек файла словаря). Файл словаря разбит на 2 части. В первой части представляются "одиночные" слова, а во второй части словосочетания и предложения. Это сделано для запоминания устойчивых выражений, которые есть в каждом языке. Слишком длинные фразы, состоящие из большого количества слов, не запоминаются в файле словаря.
+In addition, you can use it from the command line instead calling by selecting text and pressing hotkeys. It's enough to write, for example `translate Привет, Мир!`, and the translation appears in the same terminal.
 
-Со временем, слова (и фразы) удаляются из файла словаря, при условии, что вы их выучили и больше не прибегали к их переводу. Проверка слов, ктороые вы выучили происходит раз в определённое (во время установки) количество дней. 
+The words that you transfer most often found above the rest in the vocabulary file. This is help you to remember the most "difficult" words before bedtime (it is enough to read (some time) the first few lines of the vocabulary file). Dictionary file is divided into two parts. The single words are presented in the first part and the collocations and phrases are presented in the second half. It is done to remember the fixed expressions, which are in each language. Too long sentences consisting of many words do not store in the vocabulary file.
 
-Перед переводом, текст подвергается дополнительной обработке. Символы перехода в новую строку убираются. Переносимые слова склеиваются. Убираются пробелы слева и справа от текста, а также знаки препинания (ток же, слева и справа).
+Over time the words (or phrases) are removed from the vocabulary file, provided that you have learned them and did not resort to their translation. Definition of the words that you have learned, does every N days which you determined during the installation. The learned words will removed from the vocabulary file.
 
-##Благодарности
-Благодарю автора статьи на Habrahabr (http://habrahabr.ru/blogs/linux/137215), за прекрасную идею, что вдохновила меня на создание этого бесполезного кода.
+Before translation the text is subjected to additional processing. Newline characters are removed. Hyphenated words are glued together. Spaces are removed from the left and right of the text, and punctuation (just to the left and right).
+
+##Acknowledgments
+I thank the Habrahabr author (http://habrahabr.ru/blogs/linux/137215) for the great idea that inspired me to create this useless code.
