@@ -33,7 +33,7 @@ class Installer
 
   def check_translator_file_exist
     return if File.exist?(translator_file_path)
-    STDERR << L18ze['installer.translator_file_not_found', :translator_file_path => translator_file_path] + "\n"
+    STDERR << L18ze['installer.translator_file_not_found', translator_file_path: translator_file_path] + "\n"
     exit!
   end
 
@@ -41,14 +41,14 @@ class Installer
     Dir.mkdir(bin_dir) unless File.exist?(bin_dir)
 
     if File.exist?(translator_bin_path)
-      return -1 unless yes_no_value(L18ze['installer.translator_bin_exist', :translator_bin_path => translator_bin_path])
+      return -1 unless yes_no_value(L18ze['installer.translator_bin_exist', translator_bin_path: translator_bin_path])
       result = 1
     else
       result = 0
     end
 
     File.open(translator_bin_path, 'w') do |f|
-      f << Template['translate.sh', :translator_file_path => translator_file_path]
+      f << Template['translate.sh', translator_file_path: translator_file_path]
     end
 
     File.chmod(0755, translator_bin_path)
@@ -99,7 +99,7 @@ class Installer
     path += ' ' + translator_key_option if translator_key_option
     File.open(hotkey_conf_path, 'w') do |f|
       time = Time.now.to_i
-      f << Template['hotkey.xml', :time => time, :translator_bin_path => path, :hotkey => prepare_hotkey(hotkey)]
+      f << Template['hotkey.xml', time: time, translator_bin_path: path, hotkey: prepare_hotkey(hotkey)]
     end
   end
 
@@ -117,7 +117,7 @@ class Installer
     end
 
     return unless result == 0
-    return unless yes_no_value(L18ze['installer.ask_create_hotkeys', :another_lang_hotkey => ANOTHER_LANG_HOTKEY, :original_lang_hotkey => ORIGINAL_LANG_HOTKEY])
+    return unless yes_no_value(L18ze['installer.ask_create_hotkeys', another_lang_hotkey: ANOTHER_LANG_HOTKEY, original_lang_hotkey: ORIGINAL_LANG_HOTKEY])
 
     create_hotkey(ANOTHER_LANG_HOTKEY)
     create_hotkey(ORIGINAL_LANG_HOTKEY, '--original')

@@ -1,4 +1,3 @@
-require 'rubygems'
 require 'i18n'
 
 class L18ze
