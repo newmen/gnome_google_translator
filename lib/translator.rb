@@ -75,11 +75,7 @@ class Translator
 
   def translate(text)
     text = CGI::unescape(text)
-    from_to = if @is_original_lang
-      "sl=#{TConfig['original_lang']}&tl=#{TConfig['alternate_lang']}"
-    else
-      "sl=auto&tl=#{TConfig['original_lang']}"
-    end
+    from_to = "sl=auto&tl=#{TConfig[(@is_original_lang ? 'alternate_lang' : 'original_lang')]}"
     translate_url = "http://translate.google.com/translate_a/t?client=t&text=#{text}&#{from_to}"
     google_answer = `wget -U "Mozilla/5.0" -qO - "#{translate_url}"`
     # puts google_answer
