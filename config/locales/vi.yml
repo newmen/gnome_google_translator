@@ -1,0 +1,22 @@
+vi:
+  config:
+    select_lang: "Chon ngon ngu cua ban (%{langs})"
+    alternate_lang: 'Chon ngon ngu can dich sang'
+    bad_lang: 'Rat tiec, ngon ngu ban chon khong co trong danh sach. Xin moi chon lai.'
+    vocabulary_dir: 'Chi duong dan den file tu dien'
+    vocabulary_file_name: 'Dat ten file tu dien'
+    how_often_to_clean: 'Sau may ngay thi cac tu da hoc trong tu dien se tu dong bi xoa?'
+
+  installer:
+    translator_file_not_found: "Khong tim thay script cua tu dien %{translator_file_path}. WTF?"
+    translator_bin_exist: "File %{translator_bin_path} da ton tai. Co can thay the khong?"
+    translator_bin_not_replaced: 'chua duoc thay the'
+    translator_bin_replaced: ' da duoc thay the thanh cong'
+    translator_bin_created: 'da duoc tao thanh cong'
+    ask_about_gnome: 'Co the la cua ban khong phai Gnome?'
+    ask_create_hotkeys: "Cai dat cac phim nong %{another_lang_hotkey} va %{original_lang_hotkey}?"
+    hotkeys_created: 'Cac phim nong da duoc cai xong'
+    need_gnome_restart: 'De ket thuc viec cai dat, xin moi hay khoi dong lai Gnome'
+
+  translator:
+    source_text_does_not_selected: 'Ban chua boi den cum tu can dich'
