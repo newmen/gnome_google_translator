@@ -1,0 +1,23 @@
+es:
+  config:
+    select_lang: "Elige su lengua natal (%{langs})"
+    alternate_lang: 'Elige le lengua, para traducir a esta legua de su lengua natal'
+    bad_lang: 'Por desgracia,no hay la lengua eligida en la lista precitada. Elige otra vez'
+    vocabulary_dir: 'Escribe el camino para el directorio de la ficha del vocabulario'
+    vocabulary_file_name: 'Escribe el nombre de la ficha del vocabulario'
+    how_often_to_clean: 'Numero de los dias despues de qual hay que borrar las palabras en la ficha de vocabulario?'
+
+  installer:
+    translator_file_not_found: "No hay el script para hacer traduccion %{translator_file_path}. WTF?"
+    translator_bin_exist: "La ficha %{translator_bin_path} ya existe. Hay que sustituir?"
+    translator_bin_not_replaced: 'no ha sustituido'
+    translator_bin_replaced: 'ha sustituido con exito'
+    translator_bin_created: 'ha creado con exito'
+    ask_about_gnome: 'Es posible que no usa Gnome?'
+    ask_create_hotkeys: "Hay que crear hotkey %{another_lang_hotkey} y %{original_lang_hotkey}?"
+    hotkeys_created: 'Hotkeys han creado con exito'
+    need_gnome_restart: 'Para que los cambios empiezan a trabajar, hay que reinicir Gnome'
+
+  translator:
+    help: "Gnome Google traductor con la ficha del vocabulario.\n Los posibles variantes de las opciónes:\n\n  --help - la información corriente\n  --original - traducir de la lengua natal a la lengua, eligida durante la instalacion\n\n"
+    source_text_does_not_selected: 'No hay texto seleccionado para traducir'

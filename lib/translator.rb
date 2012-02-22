@@ -11,11 +11,17 @@ class Translator
   ICON_PATH = File.dirname(__FILE__) + '/../config/google-translate.png'
 
   def self.run
-    self.new.run
+    L18ze.init(TConfig['original_lang'])
+
+    if ARGV.first == '--help'
+      puts L18ze['translator.help']
+    else
+      self.new(!!(ARGV.delete('--original'))).run
+    end
   end
 
-  def initialize
-    @is_original_lang = !!(ARGV.delete('--original'))
+  def initialize(translate_from_original_lang)
+    @is_original_lang = translate_from_original_lang
   end
 
   def vocabulary_hashes
@@ -157,7 +163,6 @@ class Translator
         translated_text = use_vocabulary(source_text)
         message = %|"#{source_text}" "#{translated_text}"|
       else
-        L18ze.init(TConfig['original_lang'])
         message = %|"#{L18ze['translator.source_text_does_not_selected']}"|
       end
       gnome_notify(message)
