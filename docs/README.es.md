@@ -1,4 +1,4 @@
-#Gnome Google translator
+#Gnome Google traductor
 Hotkey traductor para Gnome que usa Google y forma la ficha del vocabulario para repitir palabras traducidas, antes de acostarse.
 
 La ficha del vocabulario es útil si no tiene accesso a Internet.

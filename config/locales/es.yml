@@ -19,4 +19,5 @@ es:
     need_gnome_restart: 'Para que los cambios empiezan a trabajar, hay que reinicir Gnome'
 
   translator:
+    help: "Gnome Google traductor con la ficha del vocabulario.\n Los posibles variantes de las opciónes:\n\n  --help - la información corriente\n  --original - traducir de la lengua natal a la lengua, eligida durante la instalacion\n\n"
     source_text_does_not_selected: 'No hay texto seleccionado para traducir'

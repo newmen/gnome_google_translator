@@ -1,4 +1,4 @@
-#Gnome Google translator
+#Gnome Google dịch
 Tu dien Hotkey, phien ban danh cho Gnome, su dung Google, va tao file tu dien giup ban hoc tu moi hieu qua hon truoc khi di ngu.
 
 File tu dien cung huu dung khi ban bi ngat mang internet.

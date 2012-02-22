@@ -19,4 +19,5 @@ vi:
     need_gnome_restart: 'De ket thuc viec cai dat, xin moi hay khoi dong lai Gnome'
 
   translator:
+    help: "Tu dien Gnome Google giup ban tao file tu dien cua rieng minh.\nBan co the chon cac tu khoa sau day:\n\n  --help - tai lieu tham khao\n  --original - dich tu ngon ngu cua ban sang ngon ngu can dich, duoc chon khi cai dat\n\n"
     source_text_does_not_selected: 'Ban chua boi den cum tu can dich'
