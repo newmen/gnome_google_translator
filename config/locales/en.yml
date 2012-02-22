@@ -19,4 +19,5 @@ en:
     need_gnome_restart: 'To take effect restart the Gnome'
 
   translator:
+    help: "Gnome Google translator with vocabulary file.\nYou can use below keys:\n\n  --help - current help\n  --original - translated from your native language to the alternative specified during installation\n\n"
     source_text_does_not_selected: 'Source text does not selected'
