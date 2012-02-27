@@ -1,0 +1,23 @@
+.de:
+  config:
+    select_lang: "Wahlen Sie bitte ihre Muttersprache (%{langs})"
+    alternate_lang: 'Wahlen Sie die Sprache, auf die es ubersetzt wird'
+    bad_lang: 'Es gibt leider keine ausgewahlte Sprache. Wiederholen Sie bitte die Spracheingabe'
+    vocabulary_dir: 'Worterbuch-Ordner auswahlen'
+    vocabulary_file_name: 'Worterbuch-Dateiname auswahlen'
+    how_often_to_clean: 'In wieviel Tage sollte die Worterbuch-Datei von den alten Worter frei sein werden?'
+
+  installer:
+    translator_file_not_found: "Es gibt kein Skript fur die Ubersetzung %{translator_file_path}. WTF?"
+    translator_bin_exist: "Datei %{translator_bin_path} ist bereits existiert. Ersetzen?"
+    translator_bin_not_replaced: 'nicht ersetzt'
+    translator_bin_replaced: 'erfolgreich ersetzt'
+    translator_bin_created: 'erfolgreich  existiert'
+    ask_about_gnome: 'Vielleicht haben Sie kein Gnome?'
+    ask_create_hotkeys: "Hotkeys erstellen %{another_lang_hotkey} und %{original_lang_hotkey}?"
+    hotkeys_created: 'Hotkeys sind erstellt'
+    need_gnome_restart: 'Gnome neustarten, damit Anderungen in Kraft treten '
+
+  translator:
+    help: "Gnome Google-Übersetzer mit Wörterbuch-Datei.\nEs ist möglich folgende Schlüßelvariationen:\n\n  --help - Übersicht\n  --original - Übersetzung von Ihrer Muttersprache auf die bei der Installation ausgewälten Sprache\n\n"
+    source_text_does_not_selected: 'Text fur Ubersetzung ist nicht markiert'

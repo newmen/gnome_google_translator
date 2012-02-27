@@ -28,5 +28,7 @@ Before translation the text is subjected to additional processing. Newline chara
 I thank the Habrahabr author (http://habrahabr.ru/blogs/linux/137215) for the great idea that inspired me to create this useless code.
 
 Separately, I thank the following translators:
+
 * Tran H. Que
 * Renat Arifulov
+* Nikolay Mamchenkov
