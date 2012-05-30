@@ -16,7 +16,7 @@
     ask_about_gnome: 'Vielleicht haben Sie kein Gnome?'
     ask_create_hotkeys: "Hotkeys erstellen %{another_lang_hotkey} und %{original_lang_hotkey}?"
     hotkeys_created: 'Hotkeys sind erstellt'
-    need_gnome_restart: 'Gnome neustarten, damit Anderungen in Kraft treten '
+#    need_gnome_restart: 'Gnome neustarten, damit Anderungen in Kraft treten '
 
   translator:
     help: "Gnome Google-Übersetzer mit Wörterbuch-Datei.\nEs ist möglich folgende Schlüßelvariationen:\n\n  --help - Übersicht\n  --original - Übersetzung von Ihrer Muttersprache auf die bei der Installation ausgewälten Sprache\n\n"

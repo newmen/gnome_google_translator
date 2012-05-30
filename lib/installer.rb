@@ -60,47 +60,39 @@ class Installer
     last_key = keys.pop
     keys.map do |key|
       key = 'Mod4' if key == 'Win'
-      "&lt;#{key}&gt;"
+      "<#{key}>"
     end.join + last_key
   end
 
-  # TODO: need replace below method for using gconftool-2
   def create_hotkey(hotkey, translator_key_option = nil)
-    check_dir_exist = lambda do |dir|
-      unless File.exist?(dir)
-        puts L18ze['installer.ask_about_gnome']
-        exit!
+    run_command_path_lambda = lambda { |num| "/apps/metacity/global_keybindings/run_command_#{num}" }
+    command_path_lambda = lambda { |num| "/apps/metacity/keybinding_commands/command_#{num}" }
+
+    gconftool_get_lambda = lambda { |path| `gconftool-2 --get #{path}`.strip }
+    find_empty_command_lambda = lambda {
+      empty_command_num = 0
+      (1..12).each do |num|
+        next unless gconftool_get_lambda.call(run_command_path_lambda.call(num)) == 'disabled'
+        next unless gconftool_get_lambda.call(command_path_lambda.call(num)) == ''
+
+        empty_command_num = num
+        break
       end
+      empty_command_num
+    }
+
+    command_num = find_empty_command_lambda.call
+    if command_num == 0
+      # TODO: use a more informative message
+      puts L18ze['installer.ask_about_gnome']
+      exit!
     end
 
-    keybindings_dir = HOME_DIR + '/.gconf'
-    check_dir_exist.call(keybindings_dir)
-    keybindings_dir << '/desktop'
-    check_dir_exist.call(keybindings_dir)
-    keybindings_dir << '/gnome'
-    check_dir_exist.call(keybindings_dir)
-    keybindings_dir << '/keybindings'
-
-    unless File.exist?(keybindings_dir)
-      Dir.mkdir(keybindings_dir)
-      File.open(keybindings_dir + '/%gconf.xml', 'w') {}
-    end
-
-    custom_dirs = Dir.entries(keybindings_dir) - ['.', '..', '%gconf.xml']
-    curr_number = custom_dirs.size
-    lambda_custom_dir = lambda { keybindings_dir + '/custom' + curr_number.to_s }
-    while File.exist?(lambda_custom_dir.call)
-      curr_number += 1
-    end
-
-    Dir.mkdir(lambda_custom_dir.call)
-    hotkey_conf_path = lambda_custom_dir.call + '/%gconf.xml'
+    gconftool_set_lambda = lambda { |path, value| `gconftool-2 --type=string --set #{path} '#{value}'` }
     path = translator_bin_path
     path += ' ' + translator_key_option if translator_key_option
-    File.open(hotkey_conf_path, 'w') do |f|
-      time = Time.now.to_i
-      f << Template['hotkey.xml', {:time => time, :translator_bin_path => path, :hotkey => prepare_hotkey(hotkey)}]
-    end
+    gconftool_set_lambda.call(run_command_path_lambda.call(command_num), prepare_hotkey(hotkey))
+    gconftool_set_lambda.call(command_path_lambda.call(command_num), path)
   end
 
   def run
@@ -122,6 +114,5 @@ class Installer
     create_hotkey(ANOTHER_LANG_HOTKEY)
     create_hotkey(ORIGINAL_LANG_HOTKEY, '--original')
     puts L18ze['installer.hotkeys_created']
-    puts L18ze['installer.need_gnome_restart']
   end
 end
