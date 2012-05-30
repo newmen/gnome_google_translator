@@ -16,7 +16,7 @@ ru:
     ask_about_gnome: 'Может быть у вас не Gnome?'
     ask_create_hotkeys: "Прописать горячие кнопки %{another_lang_hotkey} и %{original_lang_hotkey}?"
     hotkeys_created: 'Горячие кнопки прописаны'
-    need_gnome_restart: 'Чтобы изменения вступили в силу, перезапустите Gnome'
+#    need_gnome_restart: 'Чтобы изменения вступили в силу, перезапустите Gnome'
 
   translator:
     help: "Gnome Google переводчик с файлом словаря.\nВозможные следующие варианты ключей:\n\n  --help - текущая справка\n  --original - перевод с вашего родного языка на альтернативный, указанный при установке\n\n"

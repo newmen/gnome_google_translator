@@ -16,7 +16,7 @@ vi:
     ask_about_gnome: 'Co the la cua ban khong phai Gnome?'
     ask_create_hotkeys: "Cai dat cac phim nong %{another_lang_hotkey} va %{original_lang_hotkey}?"
     hotkeys_created: 'Cac phim nong da duoc cai xong'
-    need_gnome_restart: 'De ket thuc viec cai dat, xin moi hay khoi dong lai Gnome'
+#    need_gnome_restart: 'De ket thuc viec cai dat, xin moi hay khoi dong lai Gnome'
 
   translator:
     help: "Tu dien Gnome Google giup ban tao file tu dien cua rieng minh.\nBan co the chon cac tu khoa sau day:\n\n  --help - tai lieu tham khao\n  --original - dich tu ngon ngu cua ban sang ngon ngu can dich, duoc chon khi cai dat\n\n"

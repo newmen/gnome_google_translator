@@ -16,7 +16,7 @@ en:
     ask_about_gnome: 'Maybe you does not use Gnome?'
     ask_create_hotkeys: "Setup hotkeys %{another_lang_hotkey} and %{original_lang_hotkey}?"
     hotkeys_created: 'Hotkeys are created'
-    need_gnome_restart: 'To take effect restart the Gnome'
+#    need_gnome_restart: 'To take effect restart the Gnome'
 
   translator:
     help: "Gnome Google translator with vocabulary file.\nYou can use below keys:\n\n  --help - current help\n  --original - translated from your native language to the alternative specified during installation\n\n"
