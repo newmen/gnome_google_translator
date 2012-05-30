@@ -75,11 +75,11 @@ class Installer
 
     keybindings_dir = HOME_DIR + '/.gconf'
     check_dir_exist.call(keybindings_dir)
-    keybindings_dir += '/desktop'
+    keybindings_dir << '/desktop'
     check_dir_exist.call(keybindings_dir)
-    keybindings_dir += '/gnome'
+    keybindings_dir << '/gnome'
     check_dir_exist.call(keybindings_dir)
-    keybindings_dir += '/keybindings'
+    keybindings_dir << '/keybindings'
 
     unless File.exist?(keybindings_dir)
       Dir.mkdir(keybindings_dir)
