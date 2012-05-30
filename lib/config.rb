@@ -6,7 +6,7 @@ class TConfig
   include Interactive
 
   PATH_TO_CONFIG_FILE = '../config/config.yml'
-  LANGS = %w|af ar az be bg bn ca cs cy da de el en es et eu fa fi fr ga gl gu hi hr ht hy hy id is it iw ja ka kn ko la lt lv mk ms mt nl no pl pt ro ru sk sl sq sr sv sw ta te th tl tr uk ur vi yi zh-CH|
+  LANGS = %w|af ar az be bg bn ca cs cy da de el en eo es et eu fa fi fr ga gl gu hi hr ht hy hy id is it iw ja ka kn ko la lt lv mk ms mt nl no pl pt ro ru sk sl sq sr sv sw ta te th tl tr uk ur vi yi zh-CH|
 
   DEFAULT_ALTERNATE_LANG = 'en'
   DEFAULT_VOCABULARY_DIR = ENV['HOME']
