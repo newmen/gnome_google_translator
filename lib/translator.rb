@@ -1,10 +1,11 @@
 require 'cgi'
-require File.dirname(__FILE__) + '/unregistered_string'
+require File.dirname(__FILE__) + '/unregistered_helpers'
 require File.dirname(__FILE__) + '/localization'
 require File.dirname(__FILE__) + '/config'
 
 class Translator
   TOKENS_SEPARATOR = '-->' # be careful because it string using into regexp
+  WORDS_SEPARATOR = ' %% '
   VOCABULARY_SEPARATOR = "--\n"
   VOCABULARY_PATH = TConfig['vocabulary_dir'] + '/' + TConfig['vocabulary_file_name']
   CACHED_VOCABULARY_PATH = '../cache/' + TConfig['vocabulary_file_name']
@@ -33,7 +34,7 @@ class Translator
       if source_text
         source_text = prepare_text(source_text)
         translated_text = use_vocabulary(source_text)
-        message = %|"#{source_text}" "#{translated_text}"|
+        message = %|"#{source_text}" "#{translated_text.join("\n")}"|
       else
         message = %|"#{L18ze['translator.source_text_does_not_selected']}"|
       end
@@ -58,7 +59,7 @@ class Translator
           end
 
           freq, token, transfer = line.scan(/^\[(\d+)\] (.+) #{TOKENS_SEPARATOR} (.+)$/).first
-          curr_hash[token] = [transfer, freq.to_i]
+          curr_hash[token] = [transfer.split(WORDS_SEPARATOR), freq.to_i]
         end
       end
     end
@@ -73,7 +74,7 @@ class Translator
       end.sort_by { |token, transfer, freq| -freq }
 
       source_arr.each do |token, transfer, freq|
-        file << "[#{freq}] #{token} #{TOKENS_SEPARATOR} #{transfer}\n"
+        file << "[#{freq}] #{token} #{TOKENS_SEPARATOR} #{transfer.join(WORDS_SEPARATOR)}\n"
       end
     end
 
@@ -96,30 +97,39 @@ class Translator
 
   def prepare_text(text)
     text = text.gsub(/-\r?\n/m, '').gsub(/\r?\n/m, ' ')
-    punctuation_rexp = /[\(\)\[\]\s\?\.,!:;-]+/
-    text.gsub(/(^#{punctuation_rexp})|(#{punctuation_rexp}$)/, '')
+    punctuation_rexp = /[\(\)\[\]\s,:;-]+/
+    text.gsub!(/(^#{punctuation_rexp})|(#{punctuation_rexp}$)/, '')
+    text.gsub(/^[\?\.!]/, '')
   end
 
   def translate(text)
+    #puts "ORIGINAL TEXT: #{text}"
     text = CGI::unescape(text)
     from_to = "sl=auto&tl=#{TConfig[(@is_original_lang ? 'alternate_lang' : 'original_lang')]}"
     translate_url = "http://translate.google.com/translate_a/t?client=t&text=#{text}&#{from_to}"
     google_answer = `wget -U "Mozilla/5.0" -qO - "#{translate_url}"`
-    # puts google_answer
-    result = eval(google_answer.gsub(/,+/, ','))
-    result ? result.flatten.first : nil
+    #puts "GOOGLE ANSWER: #{google_answer}"
+    commons, details = eval(google_answer.gsub(/,{2,}/, ','))
+    if details.is_a?(String)
+      result = commons.map { |phrases| phrases.first }
+    else # if details.is_a?(Array)
+      result = []
+      details.each { |part| result.concat(part[1]) }
+    end
+    #puts "RESULT: #{result.inspect}"
+    result[0..12]
   end
 
   def use_vocabulary(text)
     vocabulary_is_updated = true
     find_transfer = lambda do |source_hash|
-      curr_data = source_hash[text]
-      if curr_data
-        curr_data[1] += 1
-        curr_data[0]
+      stored_translate_data = source_hash[text]
+      if stored_translate_data
+        stored_translate_data[1] += 1
+        stored_translate_data[0]
       else
         transfer = translate(text)
-        if transfer && transfer.downcase != text.downcase && !(text.split(/\s+/).size > 5 && text.size > 21)
+        if transfer.first && transfer.first.downcase != text.downcase && !(text.split(/\s+/).size > 5 && text.size > 21)
           source_hash[text] = [transfer, 1]
         else
           vocabulary_is_updated = false
