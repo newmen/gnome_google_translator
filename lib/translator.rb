@@ -1,5 +1,5 @@
 require 'cgi'
-require File.dirname(__FILE__) + '/unregistered_helpers'
+require File.dirname(__FILE__) + '/unregistered_string'
 require File.dirname(__FILE__) + '/localization'
 require File.dirname(__FILE__) + '/config'
 
@@ -23,6 +23,27 @@ class Translator
   def initialize(translate_from_original_lang)
     @is_original_lang = translate_from_original_lang
   end
+
+  def run
+    source_text = get_concole_text
+    if source_text
+      puts use_vocabulary(prepare_text(source_text))
+    else
+      source_text = get_x_text
+      if source_text
+        source_text = prepare_text(source_text)
+        translated_text = use_vocabulary(source_text)
+        message = %|"#{source_text}" "#{translated_text}"|
+      else
+        message = %|"#{L18ze['translator.source_text_does_not_selected']}"|
+      end
+      gnome_notify(message)
+    end
+
+    clear_vocabulary_if_need
+  end
+
+  private
 
   def vocabulary_hashes
     words_hash = UnregisteredHash.new
@@ -150,24 +171,5 @@ class Translator
 
   def gnome_notify(message)
     `notify-send -u critical --icon=#{ICON_PATH} #{message}`
-  end
-
-  def run
-    source_text = get_concole_text
-    if source_text
-      puts use_vocabulary(prepare_text(source_text))
-    else
-      source_text = get_x_text
-      if source_text
-        source_text = prepare_text(source_text)
-        translated_text = use_vocabulary(source_text)
-        message = %|"#{source_text}" "#{translated_text}"|
-      else
-        message = %|"#{L18ze['translator.source_text_does_not_selected']}"|
-      end
-      gnome_notify(message)
-    end
-
-    clear_vocabulary_if_need
   end
 end

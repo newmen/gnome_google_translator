@@ -19,6 +19,29 @@ class Installer
     self.new.run
   end
 
+  def run
+    TConfig.setup
+
+    check_translator_file_exist
+    result = create_bin
+
+    print "#{HOME_DIR + '/bin/' + TRANSLATOR_BIN_NAME} "
+    puts case(result)
+    when -1 then L18ze['installer.translator_bin_not_replaced']
+    when 0 then L18ze['installer.translator_bin_created']
+    when 1 then L18ze['installer.translator_bin_replaced']
+    end
+
+    return unless result == 0
+    return unless yes_no_value(L18ze['installer.ask_create_hotkeys', {:another_lang_hotkey => ANOTHER_LANG_HOTKEY, :original_lang_hotkey => ORIGINAL_LANG_HOTKEY}])
+
+    create_hotkey(ANOTHER_LANG_HOTKEY)
+    create_hotkey(ORIGINAL_LANG_HOTKEY, '--original')
+    puts L18ze['installer.hotkeys_created']
+  end
+
+  private
+
   def bin_dir
     HOME_DIR + '/bin'
   end
@@ -69,7 +92,7 @@ class Installer
     command_path_lambda = lambda { |num| "/apps/metacity/keybinding_commands/command_#{num}" }
 
     gconftool_get_lambda = lambda { |path| `gconftool-2 --get #{path}`.strip }
-    find_empty_command_lambda = lambda {
+    find_empty_command_lambda = lambda do
       empty_command_num = 0
       (1..12).each do |num|
         next unless gconftool_get_lambda.call(run_command_path_lambda.call(num)) == 'disabled'
@@ -79,7 +102,7 @@ class Installer
         break
       end
       empty_command_num
-    }
+    end
 
     command_num = find_empty_command_lambda.call
     if command_num == 0
@@ -93,26 +116,5 @@ class Installer
     path += ' ' + translator_key_option if translator_key_option
     gconftool_set_lambda.call(run_command_path_lambda.call(command_num), prepare_hotkey(hotkey))
     gconftool_set_lambda.call(command_path_lambda.call(command_num), path)
-  end
-
-  def run
-    TConfig.setup
-
-    check_translator_file_exist
-    result = create_bin
-
-    print "#{HOME_DIR + '/bin/' + TRANSLATOR_BIN_NAME} "
-    puts case(result)
-    when -1 then L18ze['installer.translator_bin_not_replaced']
-    when 0 then L18ze['installer.translator_bin_created']
-    when 1 then L18ze['installer.translator_bin_replaced']
-    end
-
-    return unless result == 0
-    return unless yes_no_value(L18ze['installer.ask_create_hotkeys', {:another_lang_hotkey => ANOTHER_LANG_HOTKEY, :original_lang_hotkey => ORIGINAL_LANG_HOTKEY}])
-
-    create_hotkey(ANOTHER_LANG_HOTKEY)
-    create_hotkey(ORIGINAL_LANG_HOTKEY, '--original')
-    puts L18ze['installer.hotkeys_created']
   end
 end
