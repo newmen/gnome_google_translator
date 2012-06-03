@@ -28,7 +28,7 @@ class Translator
   def run
     source_text = get_concole_text
     if source_text
-      puts use_vocabulary(prepare_text(source_text))
+      puts use_vocabulary(prepare_text(source_text)).join("\n")
     else
       source_text = get_x_text
       if source_text
@@ -97,9 +97,11 @@ class Translator
 
   def prepare_text(text)
     text = text.gsub(/-\r?\n/m, '').gsub(/\r?\n/m, ' ')
-    punctuation_rexp = /[\(\)\[\]\s,:;-]+/
+    punctuation_rexp = /[\s,:;-]+/
     text.gsub!(/(^#{punctuation_rexp})|(#{punctuation_rexp}$)/, '')
-    text.gsub(/^[\?\.!]/, '')
+    text.gsub!(/^[\)\]\?\.!]/, '')
+    text.gsub!(/[\(\[]$/, '')
+    text
   end
 
   def translate(text)
