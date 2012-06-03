@@ -34,7 +34,8 @@ class Translator
       if source_text
         source_text = prepare_text(source_text)
         translated_text = use_vocabulary(source_text)
-        message = %|"#{source_text}" "#{translated_text.join("\n")}"|
+        escaped_text = lambda { |text| text.gsub('"', '\"') }
+        message = %|"#{escaped_text.call(source_text)}" "#{escaped_text.call(translated_text.join("\n"))}"|
       else
         message = %|"#{L18ze['translator.source_text_does_not_selected']}"|
       end
