@@ -97,10 +97,11 @@ class Translator
 
   def prepare_text(text)
     text = text.gsub(/-\r?\n/m, '').gsub(/\r?\n/m, ' ')
+    text.gsub!(/^[\)\]\?\.!]+/, '')
+    text.gsub!(/[\(\[]+$/, '')
     punctuation_rexp = /[\s,:;-]+/
     text.gsub!(/(^#{punctuation_rexp})|(#{punctuation_rexp}$)/, '')
-    text.gsub!(/^[\)\]\?\.!]/, '')
-    text.gsub!(/[\(\[]$/, '')
+    text.gsub!(/[\?\.!]+$/, '') if text !~ /\s/
     text
   end
 
