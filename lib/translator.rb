@@ -28,13 +28,14 @@ class Translator
   def run
     source_text = get_concole_text
     if source_text
-      puts use_vocabulary(prepare_text(source_text))
+      puts use_vocabulary(prepare_text(source_text)).join("\n")
     else
       source_text = get_x_text
       if source_text
         source_text = prepare_text(source_text)
         translated_text = use_vocabulary(source_text)
-        message = %|"#{source_text}" "#{translated_text.join("\n")}"|
+        escaped_text = lambda { |text| text.gsub('"', '\"') }
+        message = %|"#{escaped_text.call(source_text)}" "#{escaped_text.call(translated_text.join("\n"))}"|
       else
         message = %|"#{L18ze['translator.source_text_does_not_selected']}"|
       end
@@ -97,9 +98,12 @@ class Translator
 
   def prepare_text(text)
     text = text.gsub(/-\r?\n/m, '').gsub(/\r?\n/m, ' ')
-    punctuation_rexp = /[\(\)\[\]\s,:;-]+/
+    text.gsub!(/^[\)\]\?\.!]+/, '')
+    text.gsub!(/[\(\[]+$/, '')
+    punctuation_rexp = /[\s,:;-]+/
     text.gsub!(/(^#{punctuation_rexp})|(#{punctuation_rexp}$)/, '')
-    text.gsub(/^[\?\.!]/, '')
+    text.gsub!(/[\?\.!]+$/, '') if text !~ /\s/
+    text
   end
 
   def translate(text)
@@ -151,7 +155,11 @@ class Translator
 
   def clear_vocabulary_if_need
     get_file_lines = lambda { |file_path|
-      File.open(file_path) { |f| f.readlines }
+      if File.exist?(file_path)
+        File.open(file_path) { |f| f.readlines }
+      else
+        []
+      end
     }
 
     save_file = lambda { |file_path, lines|
