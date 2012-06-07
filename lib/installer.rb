@@ -1,3 +1,4 @@
+require 'rbconfig'
 require File.dirname(__FILE__) + '/interactive'
 require File.dirname(__FILE__) + '/template'
 require File.dirname(__FILE__) + '/config'
@@ -71,7 +72,10 @@ class Installer
     end
 
     File.open(translator_bin_path, 'w') do |f|
-      f << Template['translate.sh', {:translator_file_path => translator_file_path}]
+      f << Template['translate.sh', {
+          :ruby_bin_path => File.join(Config::CONFIG['bindir'], Config::CONFIG['ruby_install_name']),
+          :translator_file_path => translator_file_path
+      }]
     end
 
     File.chmod(0755, translator_bin_path)
