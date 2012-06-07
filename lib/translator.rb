@@ -155,7 +155,11 @@ class Translator
 
   def clear_vocabulary_if_need
     get_file_lines = lambda { |file_path|
-      File.open(file_path) { |f| f.readlines }
+      if File.exist?(file_path)
+        File.open(file_path) { |f| f.readlines }
+      else
+        []
+      end
     }
 
     save_file = lambda { |file_path, lines|
