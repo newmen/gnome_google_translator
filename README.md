@@ -6,6 +6,8 @@ Vocabulary file is also useful if you suddenly lost internet.
 The readme files on another languages you can see in the [docs/](https://github.com/newmen/gnome_google_translator/tree/master/docs) directory.
 
 ##Installing
+Before, you need to install `xsel` application. For Fedora linux type `sudo yum -y install xsel` or apt-get instead yum if your linux is Ubuntu.
+
 Clone this code `git clone https://github.com/newmen/gnome_google_translator` and go to the created folder `cd gnome_google_translator`. Next do not forget to make `bundle`, after that run the installer `ruby install.rb`
 
 The installer will ask you about everything you like and tell you what to do next.
