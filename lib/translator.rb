@@ -112,8 +112,8 @@ class Translator
     from_to = "sl=auto&tl=#{TConfig[(@is_original_lang ? 'alternate_lang' : 'original_lang')]}"
     translate_url = "http://translate.google.com/translate_a/t?client=t&text=#{text}&#{from_to}"
     google_answer = `wget -U "Mozilla/5.0" -qO - "#{translate_url}"`
-    #puts "GOOGLE ANSWER: #{google_answer}"
-    commons, details = eval(google_answer.gsub(/,{2,}/, ','))
+    # puts "GOOGLE ANSWER: #{google_answer}"
+    commons, details = eval(google_answer.gsub(/,+/, ',').gsub('[,', '['))
     if details.is_a?(String)
       result = commons.map { |phrases| phrases.first }
     else # if details.is_a?(Array)
